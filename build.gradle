@@ -1,0 +1,37 @@
+plugins { id 'org.springframework.boot' version '2.7.3'
+	id 'io.spring.dependency-management' version '1.0.13.RELEASE'
+	id 'java'
+}
+
+group = 'dev.lobophf'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+        runtimeOnly 'mysql:mysql-connector-java'
+
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+                
+        implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
+
+        testImplementation group: 'com.h2database', name: 'h2', version: '2.1.214'
+
+        implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.7.3'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+test {
+	testLogging {
+		events "passed", "skipped", "failed", "standardOut", "standardError"
+	}
+}
