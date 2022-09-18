@@ -10,8 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import dev.lobophf.application.common.PlanetConstants;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.mockito.Mockito.when;
+import org.assertj.core.api.AssertionsForClassTypes;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,7 +31,7 @@ public class PlanetServiceTest {
 
   @Test
   public void createPlanet_WithValidData_ReturnsPlanet() {
-    when(planetRepository.save(PlanetConstants.PLANET)).thenReturn(PlanetConstants.PLANET);
+    Mockito.when(planetRepository.save(PlanetConstants.PLANET)).thenReturn(PlanetConstants.PLANET);
 
     Planet sut = planetService.create(PlanetConstants.PLANET);
     Assertions.assertThat(sut).isEqualTo(PlanetConstants.PLANET);
@@ -40,13 +39,13 @@ public class PlanetServiceTest {
 
   @Test
   public void createPlanet_WithInvalidData_ThrowsExceptions() {
-    when(planetRepository.save(PlanetConstants.INVALID_PLANET)).thenThrow(RuntimeException.class);
-    assertThatThrownBy(() -> planetService.create(PlanetConstants.INVALID_PLANET)).isInstanceOf(RuntimeException.class);
+    Mockito.when(planetRepository.save(PlanetConstants.INVALID_PLANET)).thenThrow(RuntimeException.class);
+    AssertionsForClassTypes.assertThatThrownBy(() -> planetService.create(PlanetConstants.INVALID_PLANET)).isInstanceOf(RuntimeException.class);
   }
 
   @Test
   public void getPlanet_ByExistingId_ReturnsPlanet() {
-    when(planetRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(PlanetConstants.PLANET));
+    Mockito.when(planetRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(PlanetConstants.PLANET));
 
     Optional<Planet> sut = planetService.get(Mockito.anyLong());
 
@@ -56,7 +55,7 @@ public class PlanetServiceTest {
 
   @Test
   public void getPlanet_ByUnexistingId_ReturnsEmpty() {
-    when(planetRepository.findById(Mockito.anyLong())).thenReturn(Optional.empty());
+    Mockito.when(planetRepository.findById(Mockito.anyLong())).thenReturn(Optional.empty());
 
     Optional<Planet> sut = planetService.get(Mockito.anyLong());
 
@@ -65,7 +64,7 @@ public class PlanetServiceTest {
 
   @Test
   public void getPlanet_ByExistingName_ReturnsPlanet() {
-    when(planetRepository.findByName(Mockito.anyString())).thenReturn(Optional.of(PlanetConstants.PLANET));
+    Mockito.when(planetRepository.findByName(Mockito.anyString())).thenReturn(Optional.of(PlanetConstants.PLANET));
 
     Optional<Planet> sut = planetService.getByName(Mockito.anyString());
 
@@ -75,7 +74,7 @@ public class PlanetServiceTest {
 
   @Test
   public void getPlanet_ByUnexistingName_ReturnsEmpty() {
-    when(planetRepository.findByName(Mockito.anyString())).thenReturn(Optional.empty());
+    Mockito.when(planetRepository.findByName(Mockito.anyString())).thenReturn(Optional.empty());
 
     Optional<Planet> sut = planetService.getByName(Mockito.anyString());
 
@@ -89,7 +88,7 @@ public class PlanetServiceTest {
     };
 //
 //    Example<Planet> query = QueryBuilder.makeQuery(new Planet(PlanetConstants.PLANET.getClimate(), PlanetConstants.PLANET.getTerrain()));
-    when(planetRepository.findAll(Mockito.any())).thenReturn(planets);
+    Mockito.when(planetRepository.findAll(Mockito.any())).thenReturn(planets);
 
     List<Planet> sut = planetService.list(PlanetConstants.PLANET.getTerrain(), PlanetConstants.PLANET.getClimate());
     
@@ -100,7 +99,7 @@ public class PlanetServiceTest {
 
   @Test
   public void listPlanets_ReturnsNoPlanets(){
-    when(planetRepository.findAll(Mockito.any())).thenReturn(Collections.emptyList());
+    Mockito.when(planetRepository.findAll(Mockito.any())).thenReturn(Collections.emptyList());
 
     List<Planet> sut = planetService.list(PlanetConstants.PLANET.getTerrain(), PlanetConstants.PLANET.getClimate());
 
@@ -115,7 +114,7 @@ public class PlanetServiceTest {
   @Test
   public void removePlanet_WithOutExistingId_throwAnyException(){
     Mockito.doThrow(new RuntimeException()).when(planetRepository).deleteById(Mockito.anyLong());
-    assertThatThrownBy(() -> planetService.remove(Mockito.anyLong()));
+    AssertionsForClassTypes.assertThatThrownBy(() -> planetService.remove(Mockito.anyLong()));
   }
 
 }

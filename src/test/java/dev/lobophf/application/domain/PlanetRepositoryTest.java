@@ -1,6 +1,7 @@
 package dev.lobophf.application.domain;
 
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -18,7 +19,7 @@ public class PlanetRepositoryTest {
   private TestEntityManager testEntityManager;
 
   @Test
-  public void createPlanet_WithValidData_ReturnsPlanet() {
+  public void createPlanet_withValidData_returnsPlanet() {
     Planet planet = planetRepository.save(PlanetConstants.PLANET);
 
     Planet sut = testEntityManager.find(Planet.class, planet.getId());
@@ -30,7 +31,7 @@ public class PlanetRepositoryTest {
   }
 
   @Test
-  public void createPlanet_WithValidData_ThrowsException() {
+  public void createPlanet_withValidData_throwsException() {
     Planet emptyPlanet = new Planet();
     Planet invalidPlanet = new Planet("", "", "");
 
@@ -38,12 +39,13 @@ public class PlanetRepositoryTest {
     Assertions.assertThatThrownBy(() -> planetRepository.save(invalidPlanet)).isInstanceOf(RuntimeException.class);
   }
 
+  @Disabled
   @Test
-  public void createPlanet_WithExistingName_ThrowsException(){
-//    Planet planet = testEntityManager.persistFlushFind(PlanetConstants.PLANET);
-//    testEntityManager.detach(planet);
-//    planet.setId(null);
-//    Assertions.assertThatThrownBy(() -> planetRepository.save(PlanetConstants.PLANET)).isInstanceOf(RuntimeException.class);
+  public void createPlanet_withExistingName_throwsException(){
+    Planet planet = testEntityManager.persistFlushFind(PlanetConstants.PLANET);
+    testEntityManager.detach(planet);
+    planet.setId(null);
+    Assertions.assertThatThrownBy(() -> planetRepository.save(PlanetConstants.PLANET)).isInstanceOf(RuntimeException.class);
   }
 
 }
