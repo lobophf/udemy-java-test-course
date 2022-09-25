@@ -1,11 +1,11 @@
-package dev.lobophf.application.common;
+package dev.lobophf.swplanetapi.common;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import dev.lobophf.application.domain.Planet;
+import dev.lobophf.swplanetapi.domain.Planet;
 
-public class PlanetConstants{
+public class PlanetConstants {
   public static final Planet PLANET = new Planet("name", "climate", "terrain");
   public static final Planet INVALID_PLANET = new Planet("", "", "");
 

@@ -1,4 +1,4 @@
-package dev.lobophf.application.domain;
+package dev.lobophf.swplanetapi.domain;
 
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
