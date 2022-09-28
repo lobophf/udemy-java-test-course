@@ -1,6 +1,7 @@
 plugins { id 'org.springframework.boot' version '2.7.3'
-	id 'io.spring.dependency-management' version '1.0.13.RELEASE'
-	id 'java'
+	  id 'io.spring.dependency-management' version '1.0.13.RELEASE'
+	  id 'java'
+          id 'jacoco'
 }
 
 group = 'dev.lobophf'
@@ -34,5 +35,24 @@ test {
 	testLogging {
 		events "passed", "skipped", "failed", "standardOut", "standardError"
 	}
+        finalizedBy jacocoTestReport
 } 
+
+
+jacocoTestReport {
+    dependsOn test
+
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: 'dev/lobophf/swplanetapi/SwPlanetApiApplication.class')
+        }))
+    }
+}
+
+
+jacoco {
+    toolVersion = "0.8.8"
+    reportsDirectory = layout.buildDirectory.dir('./reports/tests/jacoco')
+
+}
 
