@@ -13,11 +13,13 @@ spring.datasource.username={username}
 spring.datasource.password={password}    
 spring.datasource.driver-class-name=com.mysql.jdbc.Driver    
 ```
-Now, go to the root project and run the command below to locally download a specific version of Gradle. Note: Older versions of Gradle aren't able to perform this action. I tested it with Gradle 7.5.1, and it worked.
+Now, go to the root project and run the command below to locally download a specific Gradle version.
 
 ```sh 
 gradle wrapper
 ```
+> __Note__ <br><br>
+> **Older Gradle versions aren't able to perform this action. I tested it with Gradle 7.5.1, and it worked.**
 
 After setting the configurations, Spring Boot should be able to run the application. To do that, run the following Gradle task and access `http://localhost:8080/planets`:
 
@@ -49,8 +51,31 @@ DELETE
 ```sh
 curl -X DELETE http://localhost:8080/planets/{id}
 ```
-
 ## How to config and run the tests:
-The tests cover unit, integration, component, and end-to-end tests. As the unit test, the integration test is ready to run because the [H2 Database](https://www.h2database.com/html/main.html) will be invoked in memory, and isn't necessarily taking additional action.
+The tasks cover unit, integration, component, and end-to-end tests. For the first two types, the test environment is already ready to use. However, for the component and end-to-end tests, you'll need to configure a similar database to the one used in the production environment. So, in this case, you need to create another property file `./src/test/resources/application-it.properties`, and fill it with the information for the database exclusive for testings.
+> __Warning__<br><br>
+> **Do not use the same database used in the production environment, or you will LOSE ALL DATA!**
 
-However, for the component and end-to-end tests, the test and production environments use the same type of database. So, in this case, you need to create another property file.
+To run all tests:
+```sh
+./gradlew test
+```
+To run unit and integration tests only:
+```sh
+./gradlew test --tests dev.lobophf.swplanetapi.*Test
+```
+
+To run component and end-to-end tests only:
+```sh
+./gradlew test --tests dev.lobophf.swplanetapi.*IT
+```
+
+To run an especific test class:
+```sh
+./gradlew test --tests dev.lobophf.swplanetapi.domain.PlanetRepositoryTest	
+```
+
+To run an especific test method:
+```sh
+./gradlew test --tests dev.lobophf.swplanetapi.web.PlanetControllerTest.createPlanet_WithValidData_ReturnsCreated
+```
