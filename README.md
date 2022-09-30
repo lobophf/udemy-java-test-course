@@ -57,25 +57,25 @@ The tasks cover unit, integration, component, and end-to-end tests. For the firs
 > **Do not use the same database used in the production environment, or you will LOSE ALL DATA!**
 
 To run all tests:
-```sh
+```
 ./gradlew test
 ```
 To run unit and integration tests only:
-```sh
+```
 ./gradlew test --tests dev.lobophf.swplanetapi.*Test
 ```
 
 To run component and end-to-end tests only:
-```sh
+```
 ./gradlew test --tests dev.lobophf.swplanetapi.*IT
 ```
 
 To run an especific test class:
-```sh
+```
 ./gradlew test --tests dev.lobophf.swplanetapi.domain.PlanetRepositoryTest	
 ```
 
 To run an especific test method:
-```sh
+```
 ./gradlew test --tests dev.lobophf.swplanetapi.web.PlanetControllerTest.createPlanet_WithValidData_ReturnsCreated
 ```
