@@ -81,7 +81,7 @@ To run an especific test method, you can try something like that:
 ```
 ### Test Logs:
 
-To show jacoco log, run the following command:
+To show the jacoco log, run the following command:
 ```
 ./gradlew clean build jacocoTestReport
 ```
