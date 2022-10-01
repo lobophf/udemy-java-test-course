@@ -85,7 +85,4 @@ To show the jacoco log, run the following command:
 ```
 ./gradlew clean build jacocoTestReport
 ```
-The results will be availiable on this folder:
-```
-./build/reports/tests/jacoco/test/html
-```
+The results will be availiable on this folder `./build/reports/tests/jacoco/test/html`.
