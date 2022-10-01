@@ -75,7 +75,17 @@ To run an especific test class:
 ./gradlew test --tests dev.lobophf.swplanetapi.domain.PlanetRepositoryTest	
 ```
 
-To run an especific test method:
+To run an especific test method, you can try something like that:
 ```
 ./gradlew test --tests dev.lobophf.swplanetapi.web.PlanetControllerTest.createPlanet_WithValidData_ReturnsCreated
+```
+### Test Logs:
+
+To show jacoco log, run the following command:
+```
+./gradlew clean build jacocoTestReport
+```
+The results will be availiable on this folder:
+```
+./build/reports/tests/jacoco/test/html
 ```
